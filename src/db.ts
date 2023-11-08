@@ -4,10 +4,14 @@ import { Task } from './models/Tasks';
 
 require('dotenv').config();
 
-const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DATABASE_URL } = process.env;
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`, {
-    logging: false, // Desactiva los registros SQL en la consola (puedes cambiarlo si deseas ver las consultas)
+if (!DATABASE_URL) {
+    throw new Error('DATABASE_URL no está definido en el archivo .env');
+}
+
+const sequelize = new Sequelize(DATABASE_URL, {
+    logging: false,
 });
 
 Task.initialize(sequelize);

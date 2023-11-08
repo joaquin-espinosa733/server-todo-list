@@ -6,7 +6,7 @@ const port = 3001
 app.get('/', (req, res) => res.send('Hello World!'));
 
 
-sequelize.sync({ force: false })
+sequelize.sync({ force: true })
   .then(() => {
     console.log('Database connected.');
     app.listen(port, () => {
