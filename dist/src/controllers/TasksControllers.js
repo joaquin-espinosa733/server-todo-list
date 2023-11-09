@@ -9,10 +9,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteTasks = exports.allTasks = exports.createTask = void 0;
 // import { Tasks } from "../db";
 const Tasks_1 = require("../models/Tasks");
-const createTask = (newTask) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = yield Tasks_1.Task.create({ newTask });
+// const createTask = async (newTask: TasksInterface) => {
+//     const data = await Task.create({ newTask })
+//     return data
+// }
+const createTask = (id, title, description, done) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield Tasks_1.Task.create({ id, title, description, done });
     return data;
 });
-exports.default = createTask;
+exports.createTask = createTask;
+const allTasks = () => __awaiter(void 0, void 0, void 0, function* () {
+    const all = yield Tasks_1.Task.findAll();
+    return all;
+});
+exports.allTasks = allTasks;
+const deleteTasks = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const task = yield Tasks_1.Task.destroy({
+        where: {
+            id: id
+        }
+    });
+    return task;
+});
+exports.deleteTasks = deleteTasks;

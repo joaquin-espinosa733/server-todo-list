@@ -8,19 +8,39 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const TasksControllers_1 = __importDefault(require("../controllers/TasksControllers"));
+exports.deleteTaskHandler = exports.todas = exports.taskHandler = void 0;
+const TasksControllers_1 = require("../controllers/TasksControllers");
 const taskHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const task = req.body;
+    const { id, title, description, done } = req.body;
     try {
-        const data = (0, TasksControllers_1.default)(task);
+        const data = (0, TasksControllers_1.createTask)(id, title, description, done);
         res.status(200).json(data);
     }
     catch (error) {
         res.status(404).json({ error: "ocurrio un problema" });
     }
 });
-exports.default = taskHandler;
+exports.taskHandler = taskHandler;
+const todas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const data = yield (0, TasksControllers_1.allTasks)();
+        res.status(200).json(data);
+    }
+    catch (error) {
+        res.status(404).json({ error: "no trajo las tareas" });
+    }
+});
+exports.todas = todas;
+const deleteTaskHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const idNumber = parseInt(id, 0);
+        const datas = yield (0, TasksControllers_1.deleteTasks)(idNumber);
+        res.status(200).json(datas);
+    }
+    catch (error) {
+        res.status(404).json({ error: "error al eliminar la tarea" });
+    }
+});
+exports.deleteTaskHandler = deleteTaskHandler;
