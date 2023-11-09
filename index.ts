@@ -1,9 +1,10 @@
 import express from "express"
 import sequelize from '../server/src/db';
 import app from "../server/src/server"
+import { Request, Response } from "express";
 const port = 3001
 
-app.get('/', (req, res) => res.send('Hello World!'));
+app.get('/', (req: Request, res: Response) => res.send('Hello World!'));
 
 
 sequelize.sync({ force: false })
@@ -13,6 +14,6 @@ sequelize.sync({ force: false })
       console.log(`Server is running on port ${port}`);
     });
   })
-  .catch((error) => {
+  .catch((error: any) => {
     console.error('Error connecting to the database:', error);
   });
