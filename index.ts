@@ -1,6 +1,6 @@
 import express from "express"
-import sequelize from '../server/src/db';
-import app from "../server/src/server"
+import sequelize from './src/db';
+import app from "./src/server"
 import { Request, Response } from "express";
 const port = 3001
 
