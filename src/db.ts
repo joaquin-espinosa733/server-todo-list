@@ -9,7 +9,12 @@ if (!DATABASE_URL) {
     throw new Error('DATABASE_URL no está definido en el archivo .env');
 }
 
+import pg from "pg";
+const { Client } = pg;
+
 const sequelize = new Sequelize(DATABASE_URL, {
+    dialect: "postgres",
+    dialectModule: Client,
     logging: false,
 });
 
