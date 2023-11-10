@@ -1,7 +1,6 @@
 // db.ts
 import { Sequelize } from 'sequelize';
 import { Task } from './models/Tasks';
-
 require('dotenv').config();
 
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DATABASE_URL } = process.env;
